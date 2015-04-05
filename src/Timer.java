@@ -1,4 +1,3 @@
-
 public class Timer {
 
 	private long startTime;
@@ -19,10 +18,10 @@ public class Timer {
 
 	public void end() {
 		endTime = System.currentTimeMillis();
+		executionTime = endTime - startTime;
 	}
 
 	public void printFormattedExecutionTime() {
-		executionTime = endTime - startTime;
 		String convert = String.format(
 				"Execution time: %d hour(s), %d minute(s), and %d second(s)",
 				executionTime / (1000 * 60 * 60),
