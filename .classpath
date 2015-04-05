@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="commons-io-2.4.jar" sourcepath="commons-io-2.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Scraper/commons-io-2.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Minimal JSON Parser/minimal-json-0.9.2-SNAPSHOT.jar" sourcepath="Minimal JSON Parser/minimal-json-0.9.2-SNAPSHOT-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Scraper/Minimal%20JSON%20Parser/minimal-json-0.9.2-SNAPSHOT-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Twitter4J/twitter4j-async-4.0.2.jar"/>
+	<classpathentry kind="lib" path="Twitter4J/twitter4j-core-4.0.2.jar"/>
+	<classpathentry kind="lib" path="Twitter4J/twitter4j-examples-4.0.2.jar"/>
+	<classpathentry kind="lib" path="Twitter4J/twitter4j-media-support-4.0.2.jar"/>
+	<classpathentry kind="lib" path="Twitter4J/twitter4j-stream-4.0.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
