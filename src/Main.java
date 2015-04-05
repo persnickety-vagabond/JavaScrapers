@@ -57,7 +57,7 @@ public class Main {
 			}
 		}
 
-		FileUtils.writeStringToFile(new File("data2.json"), data.asString());
+		FileUtils.writeStringToFile(new File("data2.json"), data.toString());
 		timer.end();
 		timer.printFormattedExecutionTime();
 	}
