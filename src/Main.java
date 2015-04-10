@@ -1,12 +1,14 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
-
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
+import com.eclipsesource.json.JsonValue;
 
 public class Main {
 
@@ -15,49 +17,49 @@ public class Main {
 		Timer timer = new Timer();
 		timer.begin();
 
-		// get data.json
-		JsonObject data = JsonObject.readFrom(FileUtils
-				.readFileToString(new File("data.json")));
-
-		// get instance of twitter API
-		Twitter twitter = TwitterApiBuilder.getTwitter();
-
-		// iterate over people
-		int numPeople = data.get("people").asArray().size();
-		for (int i = 0; i < numPeople; i++) {
-
-			// get Twitter handle
-			String name = data.get("people").asArray().get(i).asObject()
-					.get("twitter").asObject().get("handle").asString()
-					.substring(1);
-
-			// get number of followers from API
-			int numFollowers = 0;
-			try {
-				numFollowers = twitter.showUser(name).getFollowersCount();
-			} catch (TwitterException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Could not scrape: " + name);
-				timer.end();
-				timer.printFormattedExecutionTime();
-				return;
-			}
-
-			// update person object
-			data.get("people").asArray().get(i).asObject().get("twitter")
-					.asObject().add("followers_count", numFollowers);
-
-			try {
-				System.out.println(i + ". " + name + " has " + numFollowers
-						+ " followers.");
-				Thread.sleep(5000); // 1000 milliseconds is one second.
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
+		// get people.json
+		JsonObject data = null;
+		try {
+			data = JsonObject.readFrom(FileUtils
+					.readFileToString(new File("people.json")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// make hashset of jobs
+		HashSet<String> jobs = new HashSet<String>();
+		List<String> lines = FileUtils.readLines(new File("jobs_small.txt"));
+		for(String line: lines){
+			line = line.replaceAll("[=0-9, ]+$", "");	
+			jobs.add(line);
+		}
+			
+		
+		// Loop over people array
+		JsonArray people = data.get("people").asArray();
+		int totalPeople = people.size();
+		for(int i = 0; i < people.size(); i++){
+			
+			JsonObject person = people.get(i).asObject();		
+			
+			// get job from object
+			String job = person.get("occupation").asString();
+			
+			// Keep people with valid jobs
+			if(!jobs.contains(job)){ 
+				people.remove(i);
 			}
 		}
-
-		FileUtils.writeStringToFile(new File("data2.json"), data.toString());
+		
+		System.out.println("Preserved " + people.size() + " of " + totalPeople + ". A difference of "+ (totalPeople-people.size()) + " people.");
+		
+		// output the people with valid jobs
+		JsonObject j = new JsonObject();
+		j.add("people", people);
+		FileUtils.writeStringToFile(new File("people_final.json"), j.toString());
+		
 		timer.end();
 		timer.printFormattedExecutionTime();
 	}
