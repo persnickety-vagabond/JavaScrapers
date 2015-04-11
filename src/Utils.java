@@ -45,6 +45,7 @@ public class Utils {
 	public static String toTitleCase(String input) {
 		StringBuilder titleCase = new StringBuilder();
 		boolean nextTitleCase = true;
+		input = input.toLowerCase();
 
 		for (char c : input.toCharArray()) {
 			if (Character.isSpaceChar(c)) {
