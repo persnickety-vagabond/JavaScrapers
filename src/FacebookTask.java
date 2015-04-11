@@ -10,14 +10,7 @@ import facebook4j.conf.ConfigurationBuilder;
 public class FacebookTask {
 
 	public static void scrape() {
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-				.setOAuthAppId("1549190512010793")
-				.setOAuthAppSecret("6dd209f2ffef74bde57c157650b48f1a")
-				.setOAuthAccessToken(
-						"1549190512010793|N1pPOGrVQOheRWk7s0BTf_r2ZN8");
-		FacebookFactory ff = new FacebookFactory(cb.build());
-		Facebook facebook = ff.getInstance();
+		Facebook facebook = FacebookApiBuilder.getFacebook();
 
 		try {
 
