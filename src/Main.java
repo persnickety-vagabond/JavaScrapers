@@ -8,6 +8,7 @@ public class Main {
 		timer.begin();
 
 		// PERFORM SCRAPE
+		FacebookTask.scrape();
 
 		timer.end();
 		timer.printFormattedExecutionTime();
